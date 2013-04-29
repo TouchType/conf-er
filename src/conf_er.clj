@@ -20,13 +20,22 @@
         (throw (Exception. (str "Can't find requested configuration file: " filename))))
     (throw (Exception. "You must set the jvm property -Dconfig=<config file> to use conf-er"))))
 
-(def ^:private config-map
-  "Global settings map. Delayed evaluation to prevent io during
-   compilation. Use `config` to access this without deref."
-  (delay
-   (let [file (config-file)]
-     (with-open [conf (PushbackReader. (io/reader file))]
-       (edn/read conf)))))
+(defn reload-config-file
+  "Next time a config is requested, the configuration will be re-read
+   from disk. Obviously this could mean that other parts of your program
+   have old values and haven't re-read the configuration - it is up to
+   you to ensure your program doesn't get into an inconsistent state and
+   to re-read the config when necessary"
+  []
+  (def ^:private config-map
+    "Global settings map. Delayed evaluation to prevent io during
+     compilation. Use `config` to access this without deref."
+    (delay (let [file (config-file)]
+             (with-open [conf (PushbackReader. (io/reader file))]
+               (edn/read conf))))))
+
+;;; Ensure that the config map has been requested at least once on load
+(reload-config-file)
 
 (defn config
   "Return the requested section of the config map.  Provide any number
