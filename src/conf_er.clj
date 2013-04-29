@@ -1,3 +1,5 @@
+;;; Copyright (c) 2013 TouchType Ltd. All Rights Reserved.
+
 (ns conf-er
   "Global configuration utilities. This is intended to be very simple,
    for top-level projects which only have one configuration file. Any
