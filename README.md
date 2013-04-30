@@ -11,7 +11,7 @@ I hope you find this as useful as I have.
 Add to your leiningen dependencies
 
 ```clojure
-{:dependencies [conf-er "1.0.0"]}
+{:dependencies [[conf-er "1.0.0"]]}
 ```
 
 The idea is to have a single configuration file which consists of a keyworded map, you then look up individual properties with nested keywords, for example:
@@ -44,6 +44,7 @@ And then look up the configuration from anywhere within your program! Simply inc
 (configured? :database) => true
 (config :database) => {:host "127.0.0.1" :port 1234}
 (config :database :port) => 1234
+(config :database :connections) => (throws Exception)
 (opt-config :database :connections) => nil
 ```
 
