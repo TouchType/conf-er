@@ -44,7 +44,7 @@ And then look up the configuration from anywhere within your program! Simply inc
 (configured? :database) => true
 (config :database) => {:host "127.0.0.1" :port 1234}
 (config :database :port) => 1234
-(config :database :connections) => (throws Exception)
+(config :database :connections) => (throws Exception "Couldn't find :database :connections in configuration file")
 (opt-config :database :connections) => nil
 ```
 
