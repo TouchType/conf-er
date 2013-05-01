@@ -43,8 +43,9 @@
 
    Throws an exception if the requested key is not found"
   [& ks]
-  (or (get-in @config-map ks)
-      (throw (Exception. (str "Could not find " ks " in configuration file")))))
+  (if (apply configured? ks)
+    (get-in @config-map ks)
+    (throw (Exception. (str "Could not find " ks " in configuration file")))))
 
 (defn opt-config
   "Return the requested section of the config map.  Provide any number
@@ -58,4 +59,5 @@
   "Return whether the given (possibly nested) key is provided in the
    configuration"
   [& ks]
-  (boolean (get-in @config-map ks)))
+  (let [parent (get-in @config-map (butlast ks))]
+    (and (map? parent) (contains? parent (last ks)))))
