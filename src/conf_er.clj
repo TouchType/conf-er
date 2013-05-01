@@ -37,6 +37,13 @@
 ;;; Ensure that the config map has been requested at least once on load
 (reload-config-file)
 
+(defn configured?
+  "Return whether the given (possibly nested) key is provided in the
+   configuration"
+  [& ks]
+  (let [parent (get-in @config-map (butlast ks))]
+    (and (map? parent) (contains? parent (last ks)))))
+
 (defn config
   "Return the requested section of the config map.  Provide any number
    of nested keys, or no keys at all for the whole map.
@@ -54,10 +61,3 @@
    Does NOT throw exceptions for missing keys"
   [& ks]
   (get-in @config-map ks))
-
-(defn configured?
-  "Return whether the given (possibly nested) key is provided in the
-   configuration"
-  [& ks]
-  (let [parent (get-in @config-map (butlast ks))]
-    (and (map? parent) (contains? parent (last ks)))))
