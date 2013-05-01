@@ -11,7 +11,7 @@ I hope you find this as useful as I have.
 Add to your leiningen dependencies
 
 ```clojure
-{:dependencies [[conf-er "1.0.0"]]}
+{:dependencies [[conf-er "1.0.1"]]}
 ```
 
 The idea is to have a single configuration file which consists of a keyworded map, you then look up individual properties with nested keywords, for example:
