@@ -1,6 +1,6 @@
 ;;; Copyright (c) 2013 TouchType Ltd. All Rights Reserved.
 
-(defproject conf-er "1.0.1"
+(defproject conf-er "1.0.2-SNAPSHOT"
   :description "Simple global configuration library"
   :url "https://github.com/TouchType/conf-er"
   :license {:name "Eclipse Public License"
