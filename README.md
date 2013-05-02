@@ -27,15 +27,7 @@ The idea is to have a single configuration file which consists of a keyworded ma
 
 ```
 
-Tell your program where to find the configuration file from your leiningen project.clj
-
-```clojure
-...
-:jvm-opts ["-Dconfig=~/my-config.conf"]
-...
-```
-
-And then look up the configuration from anywhere within your program! Simply include the conf-er namespace
+And then look up the configuration from anywhere within your program! Simply include the conf-er namespace and then either the strict (config) function (which throws if nothing is configured) or (opt-config) which will simply return nil if unconfigured.
 
 ```clojure
 (use 'conf-er)
@@ -44,8 +36,18 @@ And then look up the configuration from anywhere within your program! Simply inc
 (configured? :database) => true
 (config :database) => {:host "127.0.0.1" :port 1234}
 (config :database :port) => 1234
+
+;; Trying to retrieve unconfigured options
 (config :database :connections) => (Exception "Couldn't find :database :connections in configuration file")
 (opt-config :database :connections) => nil
+```
+
+Tell your program where to find the configuration file from your leiningen project.clj, or if you want to set it when you've packaged up and distributed a jar, simply set it as an option on the java command
+
+```clojure
+...
+:jvm-opts ["-Dconfig=~/my-config.conf"]
+...
 ```
 
 If you use this from within a library, you must namespace your configuration in case the application using your library also wishes to use conf-er. You can do this like so:
