@@ -27,7 +27,7 @@
    you to ensure your program doesn't get into an inconsistent state and
    to re-read the config when necessary"
   []
-  (def ^:private config-map
+  (def config-map
     "Global settings map. Delayed evaluation to prevent io during
      compilation. Use `config` to access this without deref."
     (delay (let [file (config-file)]

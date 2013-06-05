@@ -61,6 +61,10 @@ If you use this from within a library, you must namespace your configuration in 
 
 Here :number will expand out to the namespaced keyword :my.library/number, which we put in our configuration file earlier.
 
+## Testing
+
+If you want to write tests which use this code, it's useful to know that conf-er stores all the settings in conf-er/config-map and so you can with-redefs this for tests. See conf-er's own tests for an example usage.
+
 ## Issues
 
 Hopefully this project is simplistic enough that nothing much will come up, but please report any issues through the github issue tracker.
