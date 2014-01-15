@@ -46,7 +46,7 @@ Tell your program where to find the configuration file from your leiningen proje
 
 ```clojure
 ...
-:jvm-opts ["-Dconfig=~/my-config.conf"]
+:jvm-opts ["-Dconfig=my-config.conf"]
 ...
 ```
 
