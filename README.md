@@ -50,6 +50,12 @@ Tell your program where to find the configuration file from your leiningen proje
 ...
 ```
 
+If you're changing your config on the go, you can reload the config file from your REPL:
+
+```clojure
+=> (reload-config-file)
+```
+
 If you use this from within a library, you must namespace your configuration in case the application using your library also wishes to use conf-er. You can do this like so:
 
 ```clojure
