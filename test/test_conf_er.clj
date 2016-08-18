@@ -2,13 +2,14 @@
   (:require [midje.sweet :refer :all]
             [conf-er :refer :all]))
 
-(with-redefs [conf-er/config-map (delay
-                                  {:option1 1
-                                   :option2 {:thing :test
-                                             :foo {:bar :baz}}
-                                   :booloptf false
-                                   :booloptt true
-                                   :something nil})]
+(def map {:option1 1
+          :option2 {:thing :test
+                    :foo {:bar :baz}}
+          :booloptf false
+          :booloptt true
+          :something nil})
+
+(with-redefs [conf-er/config-map (delay map)]
   (fact "Basic lookup works"
         (config :option1) => 1
         (config :option2 :thing) => :test
@@ -23,6 +24,9 @@
   (fact "Attempting to get keys which aren't there with strict config throws"
         (config :option2 :thing :bar) => (throws)
         (config :not-there) => (throws))
+
+  (fact "Passing no keys to config returns the whole map"
+        (config) => map)
 
   (fact "Basic lookups return whether they are configured or not"
         (configured? :option1) => true
