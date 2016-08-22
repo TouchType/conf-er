@@ -49,10 +49,11 @@
    of nested keys, or no keys at all for the whole map.
 
    Throws an exception if the requested key is not found"
-  [& ks]
-  (if (apply configured? ks)
-    (get-in @config-map ks)
-    (throw (Exception. (str "Could not find " ks " in configuration file")))))
+  ([] @config-map)
+  ([& ks]
+   (if (apply configured? ks)
+     (get-in @config-map ks)
+     (throw (Exception. (str "Could not find " ks " in configuration file"))))))
 
 (defn opt-config
   "Return the requested section of the config map.  Provide any number
